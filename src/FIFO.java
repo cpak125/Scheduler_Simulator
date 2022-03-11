@@ -27,7 +27,7 @@ public class FIFO {
         System.out.println("\n***********************************************\n");
     }
 
-    static long[] findWaitingTimes(ArrayList<Process> processes) {
+    static long[] findWaitingTimes(List<Process> processes) {
         long[] waitTimes = new long[processes.size()];
         waitTimes[0] = 0;
         for (int i = 1; i < processes.size(); i++) {
@@ -39,7 +39,7 @@ public class FIFO {
         return waitTimes;
     }
 
-    static long[] findTurnaroundTimes(ArrayList<Process> processes) {
+    static long[] findTurnaroundTimes(List<Process> processes) {
         long[] turnaroundTimes = new long[processes.size()];
         long[] waitTimes = findWaitingTimes(processes);
         for (int i = 0; i < processes.size(); i++) {
@@ -51,7 +51,7 @@ public class FIFO {
         return turnaroundTimes;
     }
 
-    static double findAvgWaitTime(ArrayList<Process> processes) {
+    static double findAvgWaitTime(List<Process> processes) {
         long totalWaitTime = 0;
         long[] waitTimes = findWaitingTimes(processes);
 
@@ -62,7 +62,7 @@ public class FIFO {
         return (double) totalWaitTime / processes.size();
     }
 
-    static double findAvgTurnaroundTime(ArrayList<Process> processes) {
+    static double findAvgTurnaroundTime(List<Process> processes) {
         long totalTurnaroundTime = 0;
         long[] turnaroundTimes = findTurnaroundTimes(processes);
 
