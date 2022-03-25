@@ -1,11 +1,13 @@
+import java.text.NumberFormat;
 import java.util.*;
 
 public class FIFO {
 
     static void FIFOScheduler(ArrayList<Processor> cpu) {
-
+        NumberFormat outputCommas = NumberFormat.getInstance(Locale.US);
         double totalWaitTime = 0;
         double totalTurnaroundTime = 0;
+
 
         for (int i = 0; i < cpu.size(); i++) {
 //            System.out.printf("Processor %d contains %d processes:\n", (i + 1), cpu.get(i).getProcesses().size());
@@ -21,8 +23,8 @@ public class FIFO {
 
         System.out.println("***********************************************");
 
-        System.out.printf("Avg wait time is: %.2f\n", totalWaitTime / 6);
-        System.out.printf("Avg turnaround time is: %.2f", totalTurnaroundTime / 6);
+        System.out.printf("Avg wait time is: %s\n", outputCommas.format(totalWaitTime / 6));
+        System.out.printf("Avg turnaround time is: %s", outputCommas.format(totalTurnaroundTime / 6));
 
         System.out.println("\n***********************************************\n");
     }

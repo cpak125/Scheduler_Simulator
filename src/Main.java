@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Main {
     public static void main(String[] args) {
 
@@ -30,7 +31,7 @@ public class Main {
                 index++;
             }
             startIndex = endIndex;
-            if(i < 5) {
+            if (i < 5) {
                 endIndex += (cpu.get(i + 1).getProcesses().size());
             }
 
@@ -42,8 +43,8 @@ public class Main {
         System.out.println("Starting SJF Scheduler......\n");
         SJF.SJFScheduler(cpu);
 
-//        System.out.println("Starting RR Scheduler......\n");
-////        RR.RRScheduler(cpu);
+        System.out.println("Starting RR Scheduler - time quantum = 5E+12 cpu cycles......\n");
+        RoundRobin.RRScheduler(cpu);
 
     }
 }
