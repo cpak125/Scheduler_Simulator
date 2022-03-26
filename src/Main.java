@@ -7,12 +7,6 @@ public class Main {
         // Create process objects as lines from CSV file
         List<Process> processesCSV = ReadCSV.readCSV("processes.csv");
 
-        long sum =0;
-        for(Process p : processesCSV) {
-            sum += p.getBurstTime();
-        }
-        System.out.printf("Average burst times of 250 processes is: %d\n", sum/250);
-
         List<Processor> cpu = new ArrayList<>();
         int processesRemain = 250;
         int processorRemain = 6;
@@ -50,21 +44,20 @@ public class Main {
         System.out.println("Starting FIFO Scheduler......\n");
         FIFO.FIFOScheduler(cpu);
 
-        System.out.println("\n_____________________________________________________________");
+        System.out.println("\n_____________________________________________________________\n");
 
         System.out.println("Starting SJF Scheduler......\n");
         SJF.SJFScheduler(cpu);
 
-        System.out.println("\n______________________________________________________________");
+        System.out.println("\n______________________________________________________________\n");
 
         System.out.println("Starting RR Scheduler - time quantum = 5E+12 cpu cycles......\n");
         RoundRobin.RRScheduler(cpu);
-        System.out.println("\n______________________________________________________________");
+
+        System.out.println("\n______________________________________________________________\n");
 
 
         /* PART 2 */
-        List<Process> processesCSV2 = ReadCSV.readCSV("processes.csv");
-
         ArrayList<Processor> cpu2 = new ArrayList<>();
 
         // Create CPU containing the 6 processors
@@ -75,7 +68,7 @@ public class Main {
         int twoGHz = 0;
         int fourGHz = 3;
         // iterate through all processes and add each to appropriate processor
-        for (Process process : processesCSV2) {
+        for (Process process : processesCSV) {
             if (twoGHz > 2) twoGHz = 0;
             if (fourGHz > 5) fourGHz = 3;
 
@@ -87,7 +80,7 @@ public class Main {
             // then add  current process to 2GHz processor
             // sweet-spot => assigns 15% less processes to slower processes
             // 10, 10, 9, 74, 74, 73
-            if (currBurst <=  Math.pow(10, 12) &&
+            if (currBurst <= Math.pow(10, 12) &&
                     (cpu2.get(twoGHz).getProcesses().size() <= cpu2.get(fourGHz).getProcesses().size())) {
                 cpu2.get(twoGHz).getProcesses().add(process);
                 twoGHz++;
@@ -99,6 +92,50 @@ public class Main {
 
         System.out.println("SJF with power‐saving efficiency cores paired with high‐performance cores.\n");
         SJF.SJFScheduler2(cpu2);
+
+        System.out.println("\n______________________________________________________________\n");
+
+        /* PART 3 */
+        ArrayList<Processor> cpu3 = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            cpu3.add(new Processor());
+        }
+
+        // iterate through all processes and add each to appropriate processor
+        for (Process process : processesCSV) {
+            if (twoGHz > 2) twoGHz = 0;
+            if (fourGHz > 5) fourGHz = 3;
+
+
+            int currMemSize = process.getMemSize();
+
+            // if current process's memory is <= 8000 MB
+            // and current 2GHz processor size is less <= to current 4GHz processor size
+            // then add  current process to 2GHz processor
+            // 41,41,41,43,42,43
+            if (currMemSize <= 8000 &&
+                    (cpu3.get(twoGHz).getProcesses().size() <= cpu3.get(fourGHz).getProcesses().size())) {
+                cpu3.get(twoGHz).getProcesses().add(process);
+                twoGHz++;
+            } else {
+                cpu3.get(fourGHz).getProcesses().add(process);
+                fourGHz++;
+            }
+        }
+
+        for (Processor p : cpu3) {
+            System.out.println(p.getProcesses().size());
+        }
+
+        System.out.println("SJF with memory requirements.\n");
+        SJF.SJFScheduler2(cpu3);
+
+        System.out.println("\n______________________________________________________________\n");
+
+
+
+
 
     }
 }
