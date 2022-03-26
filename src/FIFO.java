@@ -3,30 +3,19 @@ import java.util.*;
 
 public class FIFO {
 
-    static void FIFOScheduler(ArrayList<Processor> cpu) {
+    static void FIFOScheduler(List<Processor> cpu) {
         NumberFormat outputCommas = NumberFormat.getInstance(Locale.US);
-        double totalWaitTime = 0;
-        double totalTurnaroundTime = 0;
+        long totalWaitTime = 0;
+        long totalTurnaroundTime = 0;
 
 
         for (int i = 0; i < cpu.size(); i++) {
-//            System.out.printf("Processor %d contains %d processes:\n", (i + 1), cpu.get(i).getProcesses().size());
-//            for (Process p : cpu.get(i).getProcesses()) {
-//                System.out.printf("pid = %d ; burstTime = %d ; memSize = %d\n", p.getPid(), p.getBurstTime(), p.getMemSize());
-//            }
-//            System.out.printf("Processor %d average wait time is %.2f\n", (i + 1), findAvgWaitTime(cpu.get(i).getProcesses()));
             totalWaitTime += findAvgWaitTime(cpu.get(i).getProcesses());
-
-//            System.out.printf("Processor %d average turnaround time is %.2f\n\n", (i + 1), findAvgTurnaroundTime(cpu.get(i).getProcesses()));
             totalTurnaroundTime += findAvgTurnaroundTime(cpu.get(i).getProcesses());
         }
 
-        System.out.println("***********************************************");
-
-        System.out.printf("Avg wait time is: %s\n", outputCommas.format(totalWaitTime / 6));
-        System.out.printf("Avg turnaround time is: %s", outputCommas.format(totalTurnaroundTime / 6));
-
-        System.out.println("\n***********************************************\n");
+        System.out.printf("Avg wait time is: %s cycles\n", outputCommas.format(totalWaitTime / 6));
+        System.out.printf("Avg turnaround time is: %s cycles", outputCommas.format(totalTurnaroundTime / 6));
     }
 
     static long[] findWaitingTimes(List<Process> processes) {

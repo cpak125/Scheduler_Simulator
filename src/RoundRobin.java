@@ -5,7 +5,7 @@ import java.util.Locale;
 
 public class RoundRobin {
 
-    static void RRScheduler(ArrayList<Processor> cpu) {
+    static void RRScheduler(List<Processor> cpu) {
         NumberFormat outputCommas = NumberFormat.getInstance(Locale.US);
         double totalWaitTime = 0;
         double totalTurnaroundTime = 0;
@@ -22,12 +22,9 @@ public class RoundRobin {
             totalTurnaroundTime += findAvgTurnaroundTime(cpu.get(i).getProcesses());
         }
 
-        System.out.println("***********************************************");
+        System.out.printf("Avg wait time is: %s cycles\n", outputCommas.format(totalWaitTime / 6));
+        System.out.printf("Avg turnaround time is: %s cycles", outputCommas.format(totalTurnaroundTime / 6));
 
-        System.out.printf("Avg wait time is: %s\n", outputCommas.format(totalWaitTime / 6));
-        System.out.printf("Avg turnaround time is: %s", outputCommas.format(totalTurnaroundTime / 6));
-
-        System.out.println("\n***********************************************\n");
     }
 
     static long[] findWaitingTimes(List<Process> processes) {
@@ -38,7 +35,7 @@ public class RoundRobin {
         }
 
         long timeElapsed = 0; // Current time elapsed
-        double quantum = 5 * Math.pow(10, 12);
+        double quantum = 5 * Math.pow(10, 12); // sweet-spot = avg burst time
         long[] waitTimes = new long[processes.size()];
 
         // Keep traversing processes in round-robin manner until all of them are not done.
