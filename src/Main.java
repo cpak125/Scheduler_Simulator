@@ -90,7 +90,7 @@ public class Main {
             }
         }
 
-        System.out.println("SJF with power‐saving efficiency cores paired with high‐performance cores.\n");
+        System.out.println("SJF with heterogeneous CPU.\n");
         SJF.SJFScheduler2(cpu2);
 
         System.out.println("\n______________________________________________________________\n");
@@ -124,18 +124,42 @@ public class Main {
             }
         }
 
-        for (Processor p : cpu3) {
-            System.out.println(p.getProcesses().size());
-        }
-
         System.out.println("SJF with memory requirements.\n");
         SJF.SJFScheduler2(cpu3);
 
         System.out.println("\n______________________________________________________________\n");
 
 
+        /* PART 4 */
+        ArrayList<Processor> cpu4 = new ArrayList<>();
 
+        for (int i = 0; i < 6; i++) {
+            cpu4.add(new Processor());
+        }
 
+        for (Process process : processesCSV) {
+            if (twoGHz > 2) twoGHz = 0;
+            if (fourGHz > 5) fourGHz = 3;
+
+            long currBurst = process.getBurstTime();
+            int currMemSize = process.getMemSize();
+
+            // if current process's memory is <= 8000 MB && current process's burst time is <= 1E+12
+            // && current 2GHz processor size is less <= to current 4GHz processor size
+            // then add  current process to 2GHz processor
+            // 5,6,5,78,78,78
+            if (currMemSize <= 8000 && currBurst <= Math.pow(10, 12) &&
+                    cpu4.get(twoGHz).getProcesses().size() <= cpu4.get(fourGHz).getProcesses().size()) {
+                cpu4.get(twoGHz).getProcesses().add(process);
+                twoGHz++;
+            } else {
+                cpu4.get(fourGHz).getProcesses().add(process);
+                fourGHz++;
+            }
+        }
+        
+        System.out.println("FIFO with heterogeneous CPU and memory requirements.\n");
+        FIFO.FIFOScheduler2(cpu4);
 
     }
 }

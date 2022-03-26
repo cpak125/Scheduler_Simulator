@@ -29,8 +29,6 @@ public class SJF extends FIFO {
         }
 
         System.out.printf("Avg turnaround time is: %s seconds", outputCommas.format(totalTurnaroundTime / 6));
-
-
     }
 
     static long[] findWaitingTimes(List<Process> processes, long speed) {
