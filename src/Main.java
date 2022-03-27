@@ -41,24 +41,23 @@ public class Main {
 
 
         // Part 1
+        System.out.println("PART 1 \n");
         System.out.println("Starting FIFO Scheduler......\n");
         FIFO.FIFOScheduler(cpu);
 
-        System.out.println("\n_____________________________________________________________\n");
+        System.out.println("\n_____________________________________________________________");
 
         System.out.println("Starting SJF Scheduler......\n");
         SJF.SJFScheduler(cpu);
 
-        System.out.println("\n______________________________________________________________\n");
+        System.out.println("\n______________________________________________________________");
 
         System.out.println("Starting RR Scheduler - time quantum = 5E+12 cpu cycles......\n");
         RoundRobin.RRScheduler(cpu);
 
-        System.out.println("\n______________________________________________________________\n");
-
 
         /* PART 2 */
-        ArrayList<Processor> cpu2 = new ArrayList<>();
+        List<Processor> cpu2 = new ArrayList<>();
 
         // Create CPU containing the 6 processors
         for (int i = 0; i < 6; i++) {
@@ -89,14 +88,13 @@ public class Main {
                 fourGHz++;
             }
         }
-
+        System.out.println("\n=================================================================");
+        System.out.println("PART 2");
         System.out.println("SJF with heterogeneous CPU.\n");
         SJF.SJFScheduler2(cpu2);
 
-        System.out.println("\n______________________________________________________________\n");
-
         /* PART 3 */
-        ArrayList<Processor> cpu3 = new ArrayList<>();
+        List<Processor> cpu3 = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
             cpu3.add(new Processor());
@@ -124,14 +122,15 @@ public class Main {
             }
         }
 
+        System.out.println("\n=================================================================");
+        System.out.println("PART 3");
+
         System.out.println("SJF with memory requirements.\n");
         SJF.SJFScheduler2(cpu3);
 
-        System.out.println("\n______________________________________________________________\n");
-
 
         /* PART 4 */
-        ArrayList<Processor> cpu4 = new ArrayList<>();
+        List<Processor> cpu4 = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
             cpu4.add(new Processor());
@@ -157,7 +156,10 @@ public class Main {
                 fourGHz++;
             }
         }
-        
+
+        System.out.println("\n=================================================================");
+        System.out.println("PART 4");
+
         System.out.println("FIFO with heterogeneous CPU and memory requirements.\n");
         FIFO.FIFOScheduler2(cpu4);
 
